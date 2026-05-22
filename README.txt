@@ -1,1 +1,0 @@
-Muhammad Sechan Auriel - 24360001
