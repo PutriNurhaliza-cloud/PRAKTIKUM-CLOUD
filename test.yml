@@ -1,0 +1,30 @@
+name: Test Lambda GetStudents via LocalStack
+on:
+  push:
+    branches: [ main ]
+jobs:
+  localstack-testing:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Start LocalStack Community
+      run: |
+        docker run -d -p 4566:4566 -p 4510-4559:4510-4559 --name localstack_main -e ACTIVATE_PRO=0 localstack/localstack:3.0.2
+    - name: Install dependencies, Wait for LocalStack, and Run Pytest
+      env:
+        AWS_ACCESS_KEY_ID: mock_key
+        AWS_SECRET_ACCESS_KEY: mock_secret
+        AWS_DEFAULT_REGION: us-east-1
+        AWS_ENDPOINT_URL: http://localhost:4566
+      run: |
+        python -m pip install --upgrade pip
+        pip install awscli-local boto3 pytest
+        until curl -s http://localhost:4566/_localstack/health | grep -q '"s3": "available"'; do
+          sleep 5
+        done
+        pytest test_lambda.py -v
