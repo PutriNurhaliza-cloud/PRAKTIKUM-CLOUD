@@ -5,8 +5,8 @@
             "Effect": "Allow",
             "Action": ["s3:GetObject", "s3:ListBucket"],
             "Resource": [
-                "arn:aws:s3:::mahasiswa-24360001-bucket",
-                "arn:aws:s3:::mahasiswa-24360001-bucket/*"
+                "arn:aws:s3:::mahasiswa-24360002-bucket",
+                "arn:aws:s3:::mahasiswa-24360002-bucket/*"
             ]
         }
     ]
