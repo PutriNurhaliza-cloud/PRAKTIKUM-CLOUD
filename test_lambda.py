@@ -20,7 +20,7 @@ def setup_dynamodb():
     except Exception:
         table = dynamodb.Table('mahasiswa')
         
-    table.put_item(Item={'StudentId': '24360001', 'Nama': 'Muhammad Sechan Auriel'})
+    table.put_item(Item={'StudentId': '24360002', 'Nama': 'Putri'})
     table.put_item(Item={'StudentId': '24360002', 'Nama': 'Joko'})
     yield table
     table.delete()
